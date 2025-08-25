@@ -1,44 +1,51 @@
+import { useState } from 'react';
+import { Settings as SettingsIcon } from 'lucide-react';
+import { Timer as TimerComponent, TimerSettings, SessionHistory } from '../components/timer';
+import { Button, Modal } from '../components/ui';
+
 const Timer = () => {
+  const [showSettings, setShowSettings] = useState(false);
+
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="text-center space-y-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          Focus Timer
-        </h1>
-        
-        {/* Timer Circle Placeholder */}
-        <div className="flex justify-center">
-          <div className="w-64 h-64 rounded-full border-8 border-gray-200 dark:border-gray-700 flex items-center justify-center bg-white dark:bg-gray-800 shadow-lg">
-            <div className="text-center">
-              <div className="text-4xl font-mono font-bold text-gray-900 dark:text-white">
-                25:00
-              </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                Pomodoro Session
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Controls */}
-        <div className="flex justify-center space-x-4">
-          <button className="px-8 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
-            Start
-          </button>
-          <button className="px-8 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
-            Pause
-          </button>
-          <button className="px-8 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
-            Stop
-          </button>
-        </div>
-        
-        <div className="text-center py-8">
-          <p className="text-gray-500 dark:text-gray-400">
-            Timer functionality will be implemented next
+    <div className="p-6 space-y-8">
+      {/* Header */}
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Focus Timer
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">
+            Stay focused with the Pomodoro Technique
           </p>
         </div>
+        <Button 
+          variant="outline" 
+          onClick={() => setShowSettings(true)}
+          icon={<SettingsIcon size={16} />}
+        >
+          Settings
+        </Button>
       </div>
+
+      {/* Main Timer */}
+      <div className="flex justify-center">
+        <TimerComponent />
+      </div>
+
+      {/* Session History */}
+      <div className="max-w-2xl mx-auto">
+        <SessionHistory maxSessions={5} />
+      </div>
+
+      {/* Settings Modal */}
+      <Modal
+        isOpen={showSettings}
+        onClose={() => setShowSettings(false)}
+        title="Timer Settings"
+        size="xl"
+      >
+        <TimerSettings onClose={() => setShowSettings(false)} />
+      </Modal>
     </div>
   );
 };
