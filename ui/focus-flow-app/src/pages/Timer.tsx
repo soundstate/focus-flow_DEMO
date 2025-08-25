@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Settings as SettingsIcon } from 'lucide-react';
 import { Timer as TimerComponent, TimerSettings, SessionHistory } from '../components/timer';
-import { Button, Modal } from '../components/ui';
+import { Button, Modal, ConnectionStatus } from '../components/ui';
 
 const Timer = () => {
   const [showSettings, setShowSettings] = useState(false);
@@ -30,6 +30,11 @@ const Timer = () => {
       {/* Main Timer */}
       <div className="flex justify-center">
         <TimerComponent />
+      </div>
+
+      {/* Connection Status */}
+      <div className="max-w-2xl mx-auto">
+        <ConnectionStatus showDetails={true} />
       </div>
 
       {/* Session History */}

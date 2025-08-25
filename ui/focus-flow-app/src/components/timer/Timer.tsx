@@ -10,6 +10,7 @@ import {
   TimerStatus 
 } from '../../store/slices/timerSlice';
 import { Button, Card, CardContent, Badge } from '../ui';
+import { useTimerSync } from '../../hooks/useWebSocket';
 
 interface TimerProps {
   className?: string;
@@ -26,6 +27,15 @@ const Timer = ({ className = '' }: TimerProps) => {
   } = useSelector((state: RootState) => state.timer);
 
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+  
+  // WebSocket integration
+  const {
+    isConnected,
+    notifySessionStart,
+    notifySessionPause,
+    notifySessionReset,
+    notifySessionComplete
+  } = useTimerSync();
 
   // Timer effect
   useEffect(() => {
@@ -47,6 +57,13 @@ const Timer = ({ className = '' }: TimerProps) => {
       }
     };
   }, [status, dispatch]);
+
+  // Detect session completion and notify via WebSocket
+  useEffect(() => {
+    if (status === TimerStatus.FINISHED && isConnected) {
+      notifySessionComplete();
+    }
+  }, [status, isConnected, notifySessionComplete]);
 
   // Format time display
   const formatTime = (seconds: number): string => {
@@ -76,14 +93,23 @@ const Timer = ({ className = '' }: TimerProps) => {
 
   const handleStart = () => {
     dispatch(startTimer());
+    if (isConnected) {
+      notifySessionStart();
+    }
   };
 
   const handlePause = () => {
     dispatch(pauseTimer());
+    if (isConnected) {
+      notifySessionPause();
+    }
   };
 
   const handleReset = () => {
     dispatch(resetTimer());
+    if (isConnected) {
+      notifySessionReset();
+    }
   };
 
   const isRunning = status === TimerStatus.RUNNING;
