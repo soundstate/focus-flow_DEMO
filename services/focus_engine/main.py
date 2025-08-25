@@ -9,7 +9,7 @@ from contextlib import asynccontextmanager
 import uvicorn
 from config.settings import get_settings
 from config.logging_config import setup_logging
-from routers import sessions, health, websockets
+from .routers import health, sessions, websockets, analytics, templates
 from database.connection import engine
 from sqlalchemy.orm import Session
 
@@ -47,6 +47,8 @@ app.add_middleware(
 app.include_router(health.router, prefix="/health", tags=["health"])
 app.include_router(sessions.router, prefix="/api/v1/sessions", tags=["sessions"])
 app.include_router(websockets.router, prefix="/ws", tags=["websockets"])
+app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["analytics"])
+app.include_router(templates.router, prefix="/api/v1/templates", tags=["templates"])
 
 @app.get("/")
 async def root():
