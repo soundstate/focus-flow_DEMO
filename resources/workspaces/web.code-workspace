@@ -1,0 +1,66 @@
+{
+  "folders": [
+    {
+      "name": "budget-doc",
+      "path": "../../../web/budget-doc"
+    },
+    {
+      "name": "questionnaire",
+      "path": "../../../web/questionnaire"
+    },
+    {
+      "name": "server",
+      "path": "../../../server"
+    },
+    {
+      "name": "examples",
+      "path": "../../../web/ref"
+    },
+    {
+      "name": "ref",
+      "path": "../../../resources/docs"
+    }
+  ],
+  "settings": {
+    "peacock.color": "#3D8BFF",
+    "files.exclude": {
+      "../../../functions/**": true,
+      "../../../dataflow/**": true,
+      "../../../infrastructure/**": true,
+      "../../../packages/jobe_shared/jobe_shared/sql/**": true,
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/build": true,
+      "**/.venv": true,
+      "**/logs": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/build": true,
+      "**/.venv": true,
+      "**/logs": true
+    },
+    "files.associations": {
+      "*.html": "html",
+      "*.css": "css",
+      "*.js": "javascript",
+      "*.ts": "typescript",
+      "*.jsx": "javascriptreact",
+      "*.tsx": "typescriptreact"
+    },
+    "emmet.includeLanguages": {
+      "javascript": "javascriptreact",
+      "typescript": "typescriptreact"
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "ms-vscode.vscode-html-css",
+      "ms-vscode.vscode-typescript-next",
+      "johnpapa.vscode-peacock"
+    ]
+  }
+}

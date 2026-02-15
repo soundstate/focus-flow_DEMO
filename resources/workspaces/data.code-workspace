@@ -1,0 +1,28 @@
+{
+  "folders": [
+    {
+      "name": "sql-queries",
+      "path": "../../../functions/sql_query_orchestrator/sql/queries"
+    },
+    {
+      "name": "sql-config",
+      "path": "../../../functions/sql_query_orchestrator/sql/config"
+    },
+    {
+      "name": "sql-optimizations",
+      "path": "../../../functions/sql_query_orchestrator/sql/indexing"
+    },
+    {
+      "name": "sql-utilities",
+      "path": "../../../functions/sql_query_orchestrator/sql/utils"
+    }
+  ],
+  "settings": {
+    "files.associations": {
+      "*.sql": "sql"
+    }
+  },
+  "extensions": {
+    "recommendations": ["ms-mssql.mssql", "ms-python.python"]
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "folders": [
+    {
+      "name": "_sql query orchestrator",
+      "path": "../../../functions/sql_query_orchestrator"
+    },
+    {
+      "name": "_crm to blob storage",
+      "path": "../../../functions/monday_tools/crm_to_blob_storage"
+    },
+    {
+      "name": "_workspace creator",
+      "path": "../../../functions/monday_tools/workspace_creator"
+    },
+    {
+      "name": "_items",
+      "path": "../../../functions/monday_tools/update_items"
+    },
+    {
+      "name": "shared_packages",
+      "path": "../../../packages/jobe_shared"
+    },
+    {
+      "name": "shared_workflows",
+      "path": "../../../packages/jobe_workflows"
+    },
+    {
+      "name": "infrastructure",
+      "path": "../../../infrastructure"
+    },
+    {
+      "name": "log",
+      "path": "../../../logs"
+    },
+    {
+      "name": "dev tools",
+      "path": "../../../development"
+    },
+    {
+      "name": "ref",
+      "path": "../../../resources/docs"
+    }
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "${workspaceFolder}/../../../.venv/Scripts/python.exe",
+    "python.terminal.activateEnvironment": true,
+
+    "python.analysis.extraPaths": [
+      "../../../packages/jobe_shared",
+      "../../../packages/jobe_workflows",
+      "${workspaceFolder}/../../../packages/jobe_shared",
+      "${workspaceFolder}/../../../packages/jobe_workflows"
+    ],
+    "python.analysis.exclude": [
+      "**/node_modules",
+      "**/dist",
+      "**/build",
+      "**/.venv",
+      "**/venv",
+      "**/__pycache__",
+      "**/site-packages",
+      "../../../azure",
+      "../../../web",
+      "../../../app",
+      "../../../infrastructure"
+    ],
+    "python.analysis.indexing": true,
+    "python.analysis.packageIndexDepths": [
+      {
+        "name": "jobe_shared",
+        "depth": 10
+      }
+    ],
+    "python.analysis.diagnosticMode": "workspace",
+
+    "azureFunctions.projectLanguage": "Python",
+    "azureFunctions.projectRuntime": "~4",
+
+    "errorLens.enabledDiagnosticLevels": ["error", "warning", "info"],
+
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/build": true,
+      "**/.pytest_cache": true,
+      "**/logs": false,
+      "**/.venv": true,
+      "**/venv": true,
+      "../../../azure/**": true,
+      "../../../web/**": true,
+      "../../../app/**": true,
+      "../../../infrastructure/**": false
+    },
+
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/build": true,
+      "**/.venv": true,
+      "**/venv": true,
+      "**/__pycache__": true
+    },
+
+    "workbench.colorCustomizations": {
+      "activityBar.activeBackground": "#6c94af",
+      "activityBar.background": "#6c94af",
+      "activityBar.foreground": "#15202b",
+      "activityBar.inactiveForeground": "#15202b99",
+      "activityBarBadge.background": "#7c4365",
+      "activityBarBadge.foreground": "#e7e7e7",
+      "commandCenter.border": "#e7e7e799",
+      "sash.hoverBorder": "#6c94af",
+      "statusBar.background": "#527b96",
+      "statusBar.foreground": "#e7e7e7",
+      "statusBarItem.hoverBackground": "#6c94af",
+      "statusBarItem.remoteBackground": "#527b96",
+      "statusBarItem.remoteForeground": "#e7e7e7",
+      "titleBar.activeBackground": "#527b96",
+      "titleBar.activeForeground": "#e7e7e7",
+      "titleBar.inactiveBackground": "#527b9699",
+      "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#527B96"
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "ms-python.black-formatter"
+    ]
+  }
+}
