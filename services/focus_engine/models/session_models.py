@@ -13,7 +13,7 @@ from pydantic import BaseModel, Field, validator
 
 class FocusSession(Base):
     """Focus session database model"""
-    __tablename__ = "focus_sessions"
+    __tablename__ = "fe_focus_sessions"
 
     id = Column(Integer, primary_key=True, index=True)
     session_uuid = Column(UUID(as_uuid=True), default=uuid.uuid4, unique=True, index=True)
@@ -23,8 +23,15 @@ class FocusSession(Base):
     start_time = Column(DateTime, nullable=False, index=True)
     end_time = Column(DateTime, nullable=True)
     planned_duration = Column(Integer, default=50)  # minutes
+    planned_end_time = Column(DateTime, nullable=True)
     actual_duration = Column(Integer, nullable=True)
     break_duration = Column(Integer, default=10)
+
+    # Session lifecycle
+    status = Column(String(50), default="active", nullable=False, index=True)
+    paused_at = Column(DateTime, nullable=True)
+    resumed_at = Column(DateTime, nullable=True)
+    completion_reason = Column(String(100), nullable=True)
 
     # Session quality metrics
     completion_rate = Column(Float, nullable=True)  # 0.0 to 1.0
@@ -56,7 +63,7 @@ class FocusSession(Base):
 
 class User(Base):
     """User model for future multi-user support"""
-    __tablename__ = "users"
+    __tablename__ = "fe_users"
 
     id = Column(Integer, primary_key=True, index=True)
     user_uuid = Column(UUID(as_uuid=True), default=uuid.uuid4, unique=True, index=True)
