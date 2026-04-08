@@ -1,0 +1,1 @@
+# AI Insights events package

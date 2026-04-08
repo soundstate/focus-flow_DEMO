@@ -53,8 +53,8 @@ def test_cache_hit_returns_cached_data():
     prompt = "Give me coaching tips for user_1"
     prompt_hash = _hash_prompt(prompt)
 
-    # Pre-populate cache
-    now = datetime.now(timezone.utc)
+    # Pre-populate cache with naive UTC datetimes (SQLite compat)
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
     cached_data = {"tips": [{"category": "focus", "tip": "cached tip", "priority": "high"}]}
     db.add(InsightCache(
         user_id="user_1",
@@ -83,8 +83,8 @@ def test_expired_cache_is_not_returned():
     prompt = "Give me coaching tips for user_expired"
     prompt_hash = _hash_prompt(prompt)
 
-    # Pre-populate with an expired cache entry
-    now = datetime.now(timezone.utc)
+    # Pre-populate with an expired cache entry (naive UTC)
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
     expired_data = {"tips": [{"category": "focus", "tip": "old tip", "priority": "low"}]}
     db.add(InsightCache(
         user_id="user_expired",

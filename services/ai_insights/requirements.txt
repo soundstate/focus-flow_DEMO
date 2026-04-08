@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+pydantic
+pydantic-settings
+redis
+httpx
+openai==1.6.1
+pytest
+pytest-asyncio

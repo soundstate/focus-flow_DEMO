@@ -80,17 +80,22 @@ class OpenAIClient:
 
     def _get_cached(self, prompt_hash: str) -> Optional[dict]:
         """Check for a cached response that hasn't expired."""
-        now = datetime.now(timezone.utc)
         cached = (
             self.db.query(InsightCache)
-            .filter(
-                InsightCache.prompt_hash == prompt_hash,
-                InsightCache.expires_at > now,
-            )
+            .filter(InsightCache.prompt_hash == prompt_hash)
             .order_by(InsightCache.created_at.desc())
             .first()
         )
         if cached and cached.response_data:
+            # Check expiry using naive comparison (SQLite stores naive datetimes)
+            if cached.expires_at is not None:
+                expires = cached.expires_at
+                now = datetime.now(timezone.utc).replace(tzinfo=None)
+                # Strip tzinfo for safe comparison
+                if hasattr(expires, "tzinfo") and expires.tzinfo is not None:
+                    expires = expires.replace(tzinfo=None)
+                if expires <= now:
+                    return None
             return cached.response_data
         return None
 
@@ -104,7 +109,7 @@ class OpenAIClient:
         ttl_seconds: int,
     ) -> None:
         """Store a response in the cache."""
-        now = datetime.now(timezone.utc)
+        now = datetime.now(timezone.utc).replace(tzinfo=None)
         record = InsightCache(
             user_id=user_id,
             prompt_hash=prompt_hash,
