@@ -21,7 +21,7 @@ from ..services.session_service import SessionService
 logger = logging.getLogger("focus_engine.routers.sessions")
 router = APIRouter()
 
-@router.post("/sessions/", response_model=FocusSessionResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=FocusSessionResponse, status_code=status.HTTP_201_CREATED)
 async def start_session(session: FocusSessionCreate, db: Session = Depends(get_db)):
     """Start a new focus session"""
     
@@ -37,7 +37,7 @@ async def start_session(session: FocusSessionCreate, db: Session = Depends(get_d
         logger.warning(f"Failed to start session: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
 
-@router.post("/sessions/{session_id}/pause", response_model=FocusSessionResponse)
+@router.post("/{session_id}/pause", response_model=FocusSessionResponse)
 async def pause_session(session_id: str, db: Session = Depends(get_db)):
     """Pause an active session"""
     
@@ -48,7 +48,7 @@ async def pause_session(session_id: str, db: Session = Depends(get_db)):
         logger.warning(f"Failed to pause session: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
 
-@router.post("/sessions/{session_id}/resume", response_model=FocusSessionResponse)
+@router.post("/{session_id}/resume", response_model=FocusSessionResponse)
 async def resume_session(session_id: str, db: Session = Depends(get_db)):
     """Resume a paused session"""
     
@@ -59,7 +59,7 @@ async def resume_session(session_id: str, db: Session = Depends(get_db)):
         logger.warning(f"Failed to resume session: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
 
-@router.post("/sessions/{session_id}/complete", response_model=FocusSessionResponse)
+@router.post("/{session_id}/complete", response_model=FocusSessionResponse)
 async def complete_session(session_id: str, completion_reason: str = "completed", db: Session = Depends(get_db)):
     """Complete a session"""
     
@@ -74,7 +74,7 @@ async def complete_session(session_id: str, completion_reason: str = "completed"
         logger.warning(f"Failed to complete session: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
 
-@router.get("/sessions/{session_id}", response_model=FocusSessionResponse)
+@router.get("/{session_id}", response_model=FocusSessionResponse)
 def get_session(session_id: str, db: Session = Depends(get_db)):
     """Get a specific focus session"""
     
@@ -85,14 +85,14 @@ def get_session(session_id: str, db: Session = Depends(get_db)):
     
     return db_session
 
-@router.get("/sessions/user/{user_id}", response_model=FocusSessionList)
+@router.get("/user/{user_id}", response_model=FocusSessionList)
 def get_user_sessions(user_id: str, limit: int = 10, db: Session = Depends(get_db)):
     """Get recent focus sessions for a user"""
     
     sessions = SessionService.get_user_sessions(db=db, user_id=user_id, limit=limit)
     return {"sessions": sessions}
 
-@router.get("/sessions/user/{user_id}/active", response_model=FocusSessionResponse)
+@router.get("/user/{user_id}/active", response_model=FocusSessionResponse)
 def get_active_session(user_id: str, db: Session = Depends(get_db)):
     """Get a user's active session if any"""
     
@@ -102,7 +102,7 @@ def get_active_session(user_id: str, db: Session = Depends(get_db)):
     
     return session
 
-@router.delete("/sessions/{session_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{session_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_session(session_id: str, db: Session = Depends(get_db)):
     """Delete a focus session"""
     
