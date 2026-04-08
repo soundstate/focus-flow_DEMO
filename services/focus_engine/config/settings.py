@@ -27,7 +27,7 @@ class Settings(BaseSettings):
 
     # API settings
     api_prefix: str = "/api/v1"
-    cors_origins: List[str] = ["http://localhost:3000", "http://localhost:3001"]
+    cors_origins: List[str] = ["http://localhost:3000", "http://localhost:3001", "http://localhost:5173"]
 
     # Session settings
     max_sessions_per_user: int = 1000

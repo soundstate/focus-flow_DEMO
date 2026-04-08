@@ -4,8 +4,7 @@ SQLAlchemy setup with connection pooling
 """
 
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import sessionmaker, Session, DeclarativeBase
 from config.settings import get_settings
 import logging
 
@@ -25,13 +24,20 @@ engine = create_engine(
 # Create session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Create declarative base
-Base = declarative_base()
 
-def get_database() -> Session:
+# Modern declarative base (SQLAlchemy 2.0 style)
+class Base(DeclarativeBase):
+    pass
+
+
+def get_db() -> Session:
     """Get database session dependency"""
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
+
+# Backwards-compatible alias
+get_database = get_db
