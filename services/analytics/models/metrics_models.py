@@ -2,10 +2,15 @@
 
 from sqlalchemy import Column, String, Integer, Float, DateTime, Date, JSON
 from pydantic import BaseModel
-from datetime import datetime, date
+from datetime import datetime, date, timezone
 from typing import Optional
 
 from analytics.database.connection import Base
+
+
+def _utcnow():
+    """Return timezone-aware UTC now."""
+    return datetime.now(timezone.utc)
 
 
 class DailyAggregate(Base):
@@ -20,8 +25,8 @@ class DailyAggregate(Base):
     avg_productivity_score = Column(Float, default=0.0)
     total_xp_earned = Column(Integer, default=0)
     total_interruptions = Column(Integer, default=0)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=_utcnow)
+    updated_at = Column(DateTime, default=_utcnow, onupdate=_utcnow)
 
 
 class WeeklyAggregate(Base):
@@ -35,8 +40,8 @@ class WeeklyAggregate(Base):
     total_focus_minutes = Column(Integer, default=0)
     avg_productivity_score = Column(Float, default=0.0)
     total_xp_earned = Column(Integer, default=0)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=_utcnow)
+    updated_at = Column(DateTime, default=_utcnow, onupdate=_utcnow)
 
 
 class CorrelationCache(Base):
@@ -47,7 +52,7 @@ class CorrelationCache(Base):
     user_id = Column(String, index=True, nullable=False)
     correlation_type = Column(String, nullable=False)
     result = Column(JSON, nullable=True)
-    computed_at = Column(DateTime, default=datetime.utcnow)
+    computed_at = Column(DateTime, default=_utcnow)
 
 
 class DashboardMetrics(BaseModel):

@@ -1,9 +1,12 @@
 from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
 from functools import lru_cache
 
 
 class Settings(BaseSettings):
     """Analytics service configuration settings"""
+
+    model_config = ConfigDict(env_prefix="ANALYTICS_", case_sensitive=False)
 
     # Application settings
     debug_mode: bool = False
@@ -27,10 +30,6 @@ class Settings(BaseSettings):
     # External service URLs
     focus_engine_url: str = "http://localhost:8000"
     game_engine_url: str = "http://localhost:8001"
-
-    class Config:
-        env_prefix = "ANALYTICS_"
-        case_sensitive = False
 
 
 @lru_cache()
