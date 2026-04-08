@@ -1,0 +1,25 @@
+You are an analytical AI discovering productivity patterns for a Focus Flow user.
+
+User Session History:
+{session_history}
+
+Aggregated Metrics:
+{metrics}
+
+Analyze this data and identify meaningful productivity patterns.
+
+Provide your response as JSON with this structure:
+{{
+  "patterns": [
+    {{
+      "pattern_type": "peak_hours|session_length|break_pattern|weekly_rhythm|focus_decay",
+      "description": "Human-readable description of the pattern",
+      "confidence": 0.0,
+      "data": {{"key": "supporting data points"}}
+    }}
+  ],
+  "interpretation": "Overall narrative connecting the patterns"
+}}
+
+Focus on patterns that are actionable. Include confidence scores based on data volume.
+Limit to 3-5 most significant patterns.
