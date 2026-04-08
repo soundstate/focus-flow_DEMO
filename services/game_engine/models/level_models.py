@@ -12,7 +12,7 @@ XP_MULTIPLIER = 1.5
 
 class UserLevel(Base):
     """SQLAlchemy model for user level and experience"""
-    __tablename__ = "user_levels"
+    __tablename__ = "ge_user_levels"
     
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(String, unique=True, index=True, nullable=False)

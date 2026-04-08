@@ -34,13 +34,13 @@ class AchievementCategory(str, Enum):
 
 class Achievement(Base):
     """SQLAlchemy model for user achievements"""
-    __tablename__ = "achievements"
+    __tablename__ = "ge_user_achievements"
     
     id = Column(Integer, primary_key=True, index=True)
     achievement_id = Column(String, unique=True, index=True, default=lambda: str(uuid4()))
     user_id = Column(String, index=True, nullable=False)
-    achievement_type = Column(SQLEnum(AchievementType), nullable=False)
-    category = Column(SQLEnum(AchievementCategory), nullable=False)
+    achievement_type = Column(SQLEnum(AchievementType, create_constraint=False, native_enum=False), nullable=False)
+    category = Column(SQLEnum(AchievementCategory, create_constraint=False, native_enum=False), nullable=False)
     title = Column(String, nullable=False)
     description = Column(String, nullable=False)
     icon = Column(String, nullable=False)

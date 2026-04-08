@@ -20,7 +20,7 @@ class StreakMilestoneType(str, Enum):
 
 class UserStreak(Base):
     """SQLAlchemy model for user streak tracking"""
-    __tablename__ = "user_streaks"
+    __tablename__ = "ge_user_streaks"
     
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(String, unique=True, index=True, nullable=False)
