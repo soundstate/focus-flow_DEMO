@@ -7,9 +7,12 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import uvicorn
+import redis.asyncio as aioredis
 from config.settings import get_settings
 from config.logging_config import setup_logging
 from .routers import health, sessions, websockets, analytics, templates
+from .events.publisher import EventPublisher
+from .services.session_service import SessionService
 from database.connection import engine
 from sqlalchemy.orm import Session
 
@@ -21,7 +24,20 @@ logger = setup_logging()
 async def lifespan(app: FastAPI):
     """Application lifespan management"""
     logger.info("🚀 Focus Engine service starting up...")
+
+    # Connect to Redis and wire up event publisher
+    redis_client = aioredis.from_url(
+        settings.redis_url, decode_responses=True
+    )
+    publisher = EventPublisher(redis_client=redis_client)
+    SessionService.set_publisher(publisher)
+    logger.info("Redis event publisher initialized")
+
     yield
+
+    # Shutdown: clean up Redis connection
+    SessionService.set_publisher(None)
+    await redis_client.close()
     logger.info("📴 Focus Engine service shutting down...")
 
 # Create FastAPI application
