@@ -1,0 +1,1 @@
+# Analytics events package
