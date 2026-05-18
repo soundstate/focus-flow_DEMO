@@ -8,7 +8,7 @@ Focus Flow is an interactive productivity timer with gamification, built as a mi
 
 **Tech stack:** FastAPI (Python), PostgreSQL, Redis, React + TypeScript, WebSockets, Docker.
 
-**Service breakdown:** five microservices — `focus_engine`, `gamification`, `analytics`, `ai_insights`, `music_control` — each in its own folder under `services/`.
+**Service breakdown:** five microservices — `focus_engine`, `game_engine`, `analytics`, `ai_insights`, `music_control` — each in its own folder under `services/`.
 
 ## Required Reading Before Starting Any Task
 
@@ -20,7 +20,7 @@ Focus Flow is an interactive productivity timer with gamification, built as a mi
 
 ```
 focus-flow_DEMO/
-├── services/         # Five microservices (focus_engine, gamification, analytics, ai_insights, music_control)
+├── services/         # Five microservices (focus_engine, game_engine, analytics, ai_insights, music_control)
 ├── ui/               # React + TypeScript frontend
 ├── docs/             # Technical notes
 ├── resources/        # Shared assets and reference material

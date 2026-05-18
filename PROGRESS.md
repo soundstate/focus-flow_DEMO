@@ -1,5 +1,9 @@
 # Focus Flow Development Progress
 
+> **Last Updated:** 2026-05-17 (audit refresh; previous content dated 2026-04-08)
+>
+> A verbatim Notion mirror of this file lives at `ssllc_focus-flow-processes > process_v1-06` and as the "State of focus-flow_DEMO" sub-page under `ssllc_elements > focus-flow`. The in-repo file remains canonical.
+
 ## Completed Tasks
 
 ### A1: Local Repository Structure
@@ -47,6 +51,12 @@
 - [x] B4.3: AI Insights service -- OpenAI-powered recommendations, pattern detection, focus coaching, full test coverage
 - [x] B4.4: Music Control service -- playlist management, focus-adaptive playback, session-music linking, full test coverage
 
+### B5: Focus Engine Refinements (post-B4 work, all 2026-04-08)
+- [x] B5.1: Redis event publisher module (`9a29d67`, `e7409af`) -- `session.started`, `session.completed`, `session.paused`, `session.resumed` published from `SessionService` state transitions
+- [x] B5.2: Migrate ORM to SQLAlchemy `DeclarativeBase`, unify `get_db` naming, add Vite CORS origin (`6da06a6`)
+- [x] B5.3: Remove double-prefix bug in Focus Engine sessions router paths (`323e1f4`)
+- [x] B5.4: Add missing ORM columns and `fe_` table prefix to Focus Engine models (`362acbb`)
+
 ## Current Status
 
 All four secondary services (Game Engine, Analytics, AI Insights, Music Control) are **fully built** alongside the Focus Engine and Frontend. Each service has:
@@ -69,6 +79,16 @@ All four secondary services (Game Engine, Analytics, AI Insights, Music Control)
 ## Next Steps
 
 ### C1: Frontend-Backend Integration
+
+**C1 scaffolding state (as of 2026-05-17 audit):** the API client layer is in place but no page or component invokes it yet. Specifically:
+- `ui/focus-flow-app/src/services/` has `sessionApi.ts`, `analyticsApi.ts`, `templatesApi.ts`, plus a base `api.ts` pointing at `VITE_API_URL || http://localhost:8000/api/v1`.
+- `store/slices/sessionSlice.ts` defines async thunks (`createSession`, `pauseSession`, `resumeSession`, `completeSession`, `getUserSessions`, `getActiveSession`) calling those clients -- but `grep` finds no component or page invoking those thunks.
+- The Timer page (`pages/Timer.tsx`) uses `TimerComponent`, which runs a pure client-side timer via `timerSlice.tick()` and emits WebSocket notifications outbound via `useTimerSync()`. No inbound state sync from the backend.
+- `pages/Dashboard.tsx` renders static literals (Total Sessions: 23, Focus Time: 12.5h, etc.) and the Start Session button uses a `setTimeout` simulation, not the real API.
+- `pages/Analytics.tsx`, `pages/Templates.tsx`, `pages/Settings.tsx` are placeholder pages ("coming soon").
+
+So the work for C1 is to **wire the existing scaffolding into the pages**, not to build the scaffolding from scratch.
+
 - [ ] C1.1: Connect React app to Focus Engine APIs
 - [ ] C1.2: Implement real-time session synchronization
 - [ ] C1.3: Add analytics dashboards and visualizations
@@ -76,6 +96,9 @@ All four secondary services (Game Engine, Analytics, AI Insights, Music Control)
 - [ ] C1.5: Create notification and alert system
 
 ### C2: Cross-Service Integration
+
+**C2 state (as of 2026-05-17 audit):** event flow is wired at the code level -- `focus_engine` publishes to Redis via `EventPublisher`, and `game_engine`, `ai_insights`, `analytics`, `music_control` each start a Redis subscriber in their FastAPI `lifespan`. C2.1 is therefore mostly code-complete; what's missing is a runtime verification that the chain fires end-to-end (per-service unit tests use mocked Redis only).
+
 - [ ] C2.1: Wire up event-driven communication between all services
 - [ ] C2.2: End-to-end integration tests
 - [ ] C2.3: API gateway / reverse proxy setup
