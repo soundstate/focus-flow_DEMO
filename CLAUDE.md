@@ -1,5 +1,9 @@
 # CLAUDE.md
 
+> **Cross-cutting AI workflow lives in workbench (Notion).** Personalization system at [workbench / cowork-os](https://www.notion.so/357b4cf4526e814fb4c9e7d23fd52d2f) (voice + writing + identity + engineering + agent routing + notion rules). AI tool routing + cross-cutting development principles at [workbench / ai-workflow](https://www.notion.so/363b4cf4526e8176bc0be9535bf64e8a). Per-Claude-product detail at [workbench / claude](https://www.notion.so/365b4cf4526e81c79ccbc8c5f7b4df8f). Universal coding-rule skillsets at [workbench / custom-skillsets](https://www.notion.so/365b4cf4526e81ac80b9c056e527b8b9). Agent-personality catalog at [workbench / agent-personalities](https://www.notion.so/363b4cf4526e81c88ef2f9101fd51252).
+>
+> This file holds rules **specific to this repo**. Edits to cross-cutting AI guidance should land in Notion first; edits to repo-specific rules land here.
+
 This file provides guidance to Claude Code when working with code in this repository.
 
 ## Project Overview
