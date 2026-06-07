@@ -13,7 +13,7 @@ from config.logging_config import setup_logging
 from .routers import health, sessions, websockets, analytics, templates
 from .events.publisher import EventPublisher
 from .services.session_service import SessionService
-from database.connection import engine
+from database.connection import engine, Base
 from sqlalchemy.orm import Session
 
 # Initialize settings and logging
@@ -24,6 +24,8 @@ logger = setup_logging()
 async def lifespan(app: FastAPI):
     """Application lifespan management"""
     logger.info("🚀 Focus Engine service starting up...")
+
+    Base.metadata.create_all(bind=engine)
 
     # Connect to Redis and wire up event publisher
     redis_client = aioredis.from_url(

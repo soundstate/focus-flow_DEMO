@@ -144,7 +144,7 @@ class FocusSessionUpdate(BaseModel):
     
 class FocusSessionResponse(BaseModel):
     """Enhanced response model for focus session data"""
-    id: str
+    id: int
     user_id: str
     session_type: str
     planned_duration: int
@@ -156,7 +156,7 @@ class FocusSessionResponse(BaseModel):
     completion_reason: Optional[str]
     productivity_score: Optional[float]
     focus_quality: Optional[str]
-    interruption_count: int
+    interruptions: int
     created_at: datetime
     updated_at: datetime
     

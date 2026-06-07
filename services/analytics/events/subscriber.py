@@ -58,7 +58,11 @@ async def start_subscriber(redis_client, db_session_factory, publisher=None):
                 if isinstance(raw_data, bytes):
                     raw_data = raw_data.decode("utf-8")
                 data = json.loads(raw_data)
-                payload = data.get("payload", data)
+                payload = {
+                    **data.get("payload", {}),
+                    "user_id": data.get("user_id"),
+                    "event_type": data.get("event_type"),
+                }
 
                 db = db_session_factory()
                 try:

@@ -46,8 +46,8 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/focus_flow_db
-      REDIS_URL: redis://redis:6379/0
+      FOCUS_FLOW_DATABASE_URL: postgresql://postgres:postgres@postgres:5432/focus_flow_db
+      FOCUS_FLOW_REDIS_URL: redis://redis:6379/0
     depends_on:
       postgres:
         condition: service_healthy
@@ -63,8 +63,8 @@ services:
     ports:
       - "8001:8001"
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/focus_flow_db
-      REDIS_URL: redis://redis:6379/0
+      GAME_ENGINE_DATABASE_URL: postgresql://postgres:postgres@postgres:5432/focus_flow_db
+      GAME_ENGINE_REDIS_URL: redis://redis:6379/0
     depends_on:
       postgres:
         condition: service_healthy
@@ -80,8 +80,8 @@ services:
     ports:
       - "8002:8002"
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/focus_flow_db
-      REDIS_URL: redis://redis:6379/0
+      AI_INSIGHTS_DATABASE_URL: postgresql://postgres:postgres@postgres:5432/focus_flow_db
+      AI_INSIGHTS_REDIS_URL: redis://redis:6379/0
       AI_INSIGHTS_OPENAI_API_KEY: ${AI_INSIGHTS_OPENAI_API_KEY:-sk-placeholder}
     depends_on:
       postgres:
@@ -98,8 +98,8 @@ services:
     ports:
       - "8003:8003"
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/focus_flow_db
-      REDIS_URL: redis://redis:6379/0
+      ANALYTICS_DATABASE_URL: postgresql://postgres:postgres@postgres:5432/focus_flow_db
+      ANALYTICS_REDIS_URL: redis://redis:6379/0
     depends_on:
       postgres:
         condition: service_healthy
@@ -115,8 +115,8 @@ services:
     ports:
       - "8004:8004"
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/focus_flow_db
-      REDIS_URL: redis://redis:6379/0
+      MUSIC_CONTROL_DATABASE_URL: postgresql://postgres:postgres@postgres:5432/focus_flow_db
+      MUSIC_CONTROL_REDIS_URL: redis://redis:6379/0
     depends_on:
       postgres:
         condition: service_healthy
